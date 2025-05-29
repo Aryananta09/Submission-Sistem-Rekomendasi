@@ -10,18 +10,6 @@ Pendekatan content-based filtering berfokus pada perilaku masa lalu pengguna unt
 
 Proyek ini bertujuan membangun sistem rekomendasi buku dengan memanfaatkan dataset publik dari Book-Crossing, yang mencakup informasi buku, pengguna, dan rating. Melalui pemrosesan data, analisis eksploratif, dan pengembangan dua pendekatan rekomendasi (content-based dan collaborative filtering dengan neural network), sistem ini diharapkan mampu memberikan rekomendasi buku yang lebih personal dan berkualitas.
 
-## Referensi
-
-[1] F. Ricci, L. Rokach, B. Shapira, and P. B. Kantor, *Recommender Systems Handbook*, Springer, 2011.
-
-[2] U. Ungkawa, D. Rosmala, dan F. Aryanti, “Pembangunan Aplikasi Travel Recommender dengan Metode Case Base Reasoning,” *Jurnal Informatika*, vol. 4, no. 1, pp. 57–68, 2011.
-
-[3] S. R. S. Reddy et al., “Content-Based Movie Recommendation System Using Genre Correlation,” in *Smart Intelligent Computing and Applications*, S. C. Satapathy, V. Bhateja, and S. Das, Eds. Singapore: Springer, 2019, pp. 391–397.
-
-[4] H. Februaryianti, A. D. Laksono, J. S. Wibowo, dan M. S. Utomo, “Implementasi Metode Collaborative Filtering untuk Sistem Rekomendasi Penjualan pada Toko Mebel,” *Jurnal Khatulistiwa Informatika*, vol. 9, no. 1, pp. 43–50, Jun. 2021.
-
-[5] A. Zadeh, “Book Recommendation Dataset,” Kaggle, 2020. [Online]. Available: https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset
-
 
 ## Business Understanding
 
@@ -50,7 +38,7 @@ Sistem akan mencari buku yang memiliki fitur konten mirip dengan buku-buku yang 
 Sistem akan menggunakan embedding-based model (dengan TensorFlow/Keras) untuk mempelajari representasi dari pengguna dan buku berdasarkan interaksi (rating), dan memprediksi kemungkinan seorang pengguna menyukai suatu buku yang belum pernah dibaca berdasarkan pola rating dari pengguna lain.
 
 ## Data Understanding
-Dataset yang digunakan dalam proyek ini adalah Book Recommendation Dataset yang tersedia secara publik melalui platform Kaggle. Dataset ini dapat diakses melalui tautan berikut: [Book Recommendation Dataset] (https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset)
+Dataset yang digunakan dalam proyek ini adalah Book Recommendation Dataset yang tersedia secara publik melalui platform Kaggle. Dataset ini dapat diakses melalui tautan berikut: [Book Recommendation Dataset](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset)
 
 Dataset ini mencakup tiga file utama yang berisi informasi terkait buku, pengguna, dan rating yang diberikan pengguna terhadap buku. Secara keseluruhan, dataset ini terdiri dari lebih dari 270.000 entri rating, 1 juta data pengguna, dan lebih dari 270.000 judul buku. Namun, karena adanya inkonsistensi dan data duplikat, sehingga perlu dilakukan pembersihan serta penyaringan untuk mendapatkan data yang relevan dan valid sebelum membangun sistem rekomendasi.
 
@@ -77,30 +65,38 @@ Berikut adalah penjelasan mengenai masing-masing file beserta variabel yang terd
 
 ### Exploratory Data Analysis (EDA)
 #### EDA pada data buku
-![alt text](image-7.png)
+![Output dari books.info](https://github.com/user-attachments/assets/1818c5b8-c43d-445c-9b8c-5482da2c6b49)
+
 Dapat dilihat dari gambar diatas, data buku pada dataset ini terdiri dari 271.360 jumlah baris data, dan 8 kolom yang seluruh tipe datanya merupakan object. Beberapa kolom terlihat memiliki beberapa missing value yang nantinya akan diproses lebih lanjut. Selanjutnya, saya menampilkan beberapa jumlah kolom yang saya rasa relevan untuk hasil analisis, seperti author yang berjumlah 102.022 author unik, tahun publikasi sebanyak 202 tahun unik, dan publisher sebanyak 16.807 publisher unik.
 
-![alt text](image-8.png)
+![Bar Chart Top Authors](https://github.com/user-attachments/assets/5ee0da2e-e390-457f-81d4-f35814a71dac)
+
 Dari gambar diatas, dapat dilihat bahwa visualisasi grafik dengan bar chart ini dilakukan untuk menampilkan jumlah 20 author dengan jumlah buku terbanyak dari 102.022 author yang ada. Di nomor 1 ada Agatha Christie, disusul William Shakespeare, Stephen King, dan seterusnya. Popularitas author ini dapat dimanfaatkan sebagai fitur dalam sistem rekomendasi untuk mengidentifikasi penulis yang cenderung disukai banyak pembaca. Hal ini berguna terutama pada pendekatan content-based filtering dalam merekomendasikan buku dari penulis serupa atau yang sering dibaca.
 
-![alt text](image-9.png)
+![Distribusi Published Year](https://github.com/user-attachments/assets/fb825706-4ef6-460d-b41f-1f4cb9465c84)
+
 Berdasarkan visualisasi di atas, terlihat bahwa distribusi tahun publikasi buku sangat tidak merata, dengan mayoritas data terkonsentrasi pada rentang tahun modern, sementara sisanya tersebar secara ekstrem pada tahun-tahun tidak realistis. Karena adanya rentang tahun yang sangat lebar dan ketidakwajaran nilai pada sebagian besar data, fitur year_published kemungkinan tidak akan digunakan dalam model sistem rekomendasi.
 
-![alt text](image-10.png)
-Visualisasi pie chart di atas menunjukkan distribusi 10 publisher teratas dari total 16.807 penerbit dalam dataset. Harlequin menempati posisi teratas dengan proporsi sekitar 20,1%, disusul oleh Silhouette, Pocket, Ballantine Books, dan lainnya. Tingginya popularitas publisher ini dapat digunakan sebagai salah satu fitur dalam sistem rekomendasi, khususnya pada pendekatan content-based filtering, untuk mengidentifikasi kecenderungan pengguna terhadap penerbit tertentu.
+![Pie Chart Publisher](https://github.com/user-attachments/assets/7e331b37-dee0-473c-a011-3405316c3492)
+
+Visualisasi pie chart di atas menunjukkan distribusi 10 publisher teratas dari total 16.807 penerbit dalam dataset. Harlequin menempati posisi teratas dengan proporsi s![Screenshot 2025-05-29 081840](https://github.com/user-attachments/assets/f522f633-dfa9-4a49-a3d2-b19ee7bc5561)
+ekitar 20,1%, disusul oleh Silhouette, Pocket, Ballantine Books, dan lainnya. Tingginya popularitas publisher ini dapat digunakan sebagai salah satu fitur dalam sistem rekomendasi, khususnya pada pendekatan content-based filtering, untuk mengidentifikasi kecenderungan pengguna terhadap penerbit tertentu.
 
 #### EDA pada data ratings
-![alt text](image-11.png)
+![Output dari ratings.info](https://github.com/user-attachments/assets/14dae14c-1f4a-4f40-9741-04c5aaf3c92a)
+
 Dapat dilihat dari gambar diatas, data rating pada dataset ini terdiri dari 1.149.780 jumlah baris data, dan 3 kolom yang terbagi menjadi 2 kolom numerik (int64), dan 1 kolom bertipe data object. Setelah itu, ditampilkan seluruh jumlah kolom uniknya, meliputi 105.283 user unik yang memberikan rating, 340556 buku unik yang direview, dan jumlah ratingnya adalah 1.149.780 penilaian.
 
-![alt text](image-12.png)
+![Output dari ratings.describe](https://github.com/user-attachments/assets/cddc8cbf-4939-4c76-8570-3fa4ecaf52f5)
+
 Statistik deskriptif pada gambar menunjukkan bahwa dari 1.149.780 data rating, sebagian besar pengguna memberikan nilai 0, yang terlihat dari median (50%) dan kuartil pertama (25%) yang juga bernilai 0, serta rata-rata rating hanya sebesar 2.87. Hal ini mengindikasikan bahwa banyak pengguna tidak memberikan rating eksplisit atau kemungkinan rating 0 merepresentasikan ketidaktertarikan. Sementara itu, nilai maksimum rating mencapai 10, yang menunjukkan adanya pengguna yang memberikan penilaian tinggi terhadap buku yang mereka sukai.
 
 #### EDA pada data users
-![alt text](image-13.png)
+![Output dari users.info](https://github.com/user-attachments/assets/7f72fe67-c397-4e86-9560-2f7212d2e7e6)
+
 Dapat dilihat dari gambar diatas, data pengguna pada dataset ini terdiri dari 278.858 jumlah baris data, dan 3 kolom yang terbagi menjadi 2 kolom numerik (int64 dan float64), dan 1 kolom bertipe data object. Kolom Age menunjukkan adanya banyak nilai yang hilang (missing value) atau kosong (null), yang perlu diperhatikan dalam tahap pembersihan data karena dapat memengaruhi kualitas analisis dan hasil sistem rekomendasi.
 
-![alt text](image-14.png)
+![Output dari users.head](https://github.com/user-attachments/assets/d2a23094-fafb-4d1a-bfeb-7d3ef6a45365)
 Terlihat dari gambar diatas, data pengguna terdiri dari lokasi, dan umur pengguna yang sebenarnya berguna untuk membangun sistem rekomendasi berbasis demografi yang lebih kompleks. Namun, dalam studi kasus ini, sistem rekomendasi content-based filtering hanya akan menggunakan informasi dari item buku saja, seperti judul, author (penulis), dan publisher(penerbit). Selain itu, alasannya juga karena banyaknya missing value pada age juga menjadi pertimbangan pemilihan fitur.
 
 
@@ -189,6 +185,18 @@ Untuk problem pertama, yaitu bagaimana membangun sistem rekomendasi berdasarkan 
 Untuk problem kedua, yakni bagaimana memberikan rekomendasi terhadap buku yang belum pernah dibaca oleh pengguna, sistem collaborative filtering berbasis neural network menunjukkan performa yang baik. Dengan menggunakan model embedding untuk mempelajari representasi pengguna dan buku dari data histori rating, sistem dapat memprediksi preferensi pengguna terhadap buku-buku yang belum pernah mereka baca sebelumnya. Hasil evaluasi menggunakan metrik RMSE menghasilkan nilai 0.89, yang menandakan bahwa prediksi sistem terhadap rating cukup akurat dan mendekati nilai aktual. Dengan ini, goal kedua juga berhasil dicapai, yaitu menghasilkan rekomendasi yang mampu memperluas eksplorasi pengguna terhadap buku-buku baru yang relevan.
 
 Secara keseluruhan, solusi yang diterapkan berdampak positif terhadap permasalahan yang dihadapi. Pendekatan content-based membantu mempertahankan relevansi berdasarkan histori pengguna, sementara pendekatan collaborative filtering memungkinkan sistem memberikan rekomendasi yang lebih variatif dan menjangkau buku-buku yang belum diketahui pengguna. Kombinasi kedua pendekatan ini memperkuat personalisasi dan meningkatkan kualitas sistem rekomendasi secara umum, sesuai dengan tujuan proyek ini.
+
+## Referensi
+
+[1] F. Ricci, L. Rokach, B. Shapira, and P. B. Kantor, *Recommender Systems Handbook*, Springer, 2011.
+
+[2] U. Ungkawa, D. Rosmala, dan F. Aryanti, “Pembangunan Aplikasi Travel Recommender dengan Metode Case Base Reasoning,” *Jurnal Informatika*, vol. 4, no. 1, pp. 57–68, 2011.
+
+[3] S. R. S. Reddy et al., “Content-Based Movie Recommendation System Using Genre Correlation,” in *Smart Intelligent Computing and Applications*, S. C. Satapathy, V. Bhateja, and S. Das, Eds. Singapore: Springer, 2019, pp. 391–397.
+
+[4] H. Februaryianti, A. D. Laksono, J. S. Wibowo, dan M. S. Utomo, “Implementasi Metode Collaborative Filtering untuk Sistem Rekomendasi Penjualan pada Toko Mebel,” *Jurnal Khatulistiwa Informatika*, vol. 9, no. 1, pp. 43–50, Jun. 2021.
+
+[5] A. Zadeh, “Book Recommendation Dataset,” Kaggle, 2020. [Online]. Available: https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset
 
 **---Ini adalah bagian akhir laporan---**
 
