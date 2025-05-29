@@ -194,6 +194,7 @@ $$
 di mana 𝑟𝑖 adalah rating aktual dan 𝑟^𝑖 adalah rating prediksi. Metrik ini bekerja dengan mengukur selisih kuadrat antara prediksi dan nilai sebenarnya, kemudian mengambil akar dari rata-ratanya. Semakin kecil nilai RMSE, semakin akurat prediksi yang dihasilkan oleh sistem.
 
 Hasil : 
+![Evaluasi RMSE Collaborative Filtering](https://github.com/user-attachments/assets/a91c9e0e-45f2-42db-9195-580bf4e7d52a)
 
 Berdasarkan grafik di atas, nilai RMSE pada data latih terus menurun seiring bertambahnya epoch, yang menandakan bahwa model berhasil mempelajari pola dari data dengan baik. Namun, RMSE pada data uji mulai mendatar dan sedikit meningkat setelah sekitar 20 epoch. Hal ini mengindikasikan adanya gejala overfitting, di mana model terlalu menyesuaikan diri terhadap data latih sehingga performanya pada data baru mulai menurun. Meskipun demikian, nilai RMSE pada data uji tetap berada pada kisaran rendah (sekitar 0.40), yang menunjukkan bahwa model memiliki performa prediksi yang cukup baik secara keseluruhan.
 
